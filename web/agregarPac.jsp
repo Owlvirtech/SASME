@@ -65,7 +65,8 @@
             <i class="material-icons">more_vert</i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <a href="nosotros.jsp"><li class="mdl-menu__item">Nosotros</li></a>
+            <li class="mdl-menu__item">Nosotros</li>
+            <li class="mdl-menu__item">Nuestra Pagina</li>
           </ul>
         </div>
       </header>
@@ -83,24 +84,22 @@
             %>   
                 <a class="mdl-navigation__link" href="consultarDoc.jsp">Doctores</a>
                 <a class="mdl-navigation__link" href="">Bitácoras</a>
-                <a class="mdl-navigation__link" href="">Estadísticas</a>
             <%        
                 }else if(Tipo.equals("Doctor")){
             %>
                 <a class="mdl-navigation__link" href="consulta.jsp">Consulta Médica</a>
                 <a class="mdl-navigation__link" href="consultaExp.jsp">Expedientes</a>
                 <a class="mdl-navigation__link" href="">Bitácoras</a>
-                <a class="mdl-navigation__link" href="">Estadísticas</a>
             <%
                 }
             %>
-          
+          <a class="mdl-navigation__link" href="Graficas.jsp">Estadisticas</a>
           <a class="mdl-navigation__link" href="CerrarSesion.jsp">salir</a>
           <div class="mdl-layout-spacer"></div>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-          <form action="AgregarDoc" method="post">
+          <form action="agregarPac" method="post">
               <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
                   <input class="mdl-textfield__input" type="text" id="nombreP" name="nnombreP">

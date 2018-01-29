@@ -31,27 +31,25 @@ public class agregarPac extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ses = request.getSession();
-        
-//        cDoctor doc = new cDoctor();
-        String nnombrePaciente = request.getParameter("nnombreP");
-        String identificador = request.getParameter("identificador");
-        int edad = Integer.parseInt(request.getParameter("edadP"));
-        String tipoPaciente = request.getParameter("tipoP");        
-        String genero = request.getParameter("generoP");      
-        String nnssPaciente = request.getParameter("nss");
-        String institucion = request.getParameter("institucion");
-        
-        
-        
-//        Conectamos a la base
-//        doc.insertaConsultaDatosBasicos(nombreDoctor, usuarioDoctor, nombrePaciente,
-//                                        nssPaciente, tipoConsulta, cedulaProfesional);
-//        
-//        doc.insertaConsultaDatosProfundos(peso, talla, perimetro, fc, fr, temp, tension, pulso,
-//                                          grupoSan, rh, agudezaVisual, observaciones, onicomicosis)
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession ses = request.getSession();
+            cPacientes pac = new cPacientes();
+            String nnombrePaciente = request.getParameter("nnombreP");
+            String identificador = request.getParameter("identificador");
+            int edad = Integer.parseInt(request.getParameter("edadP"));
+            String tipoPaciente = request.getParameter("tipoP");        
+            String genero = request.getParameter("generoP");      
+            String nnssPaciente = request.getParameter("nss");
+            String institucion = request.getParameter("institucion");
 
-response.sendRedirect("consulta.jsp");
+            pac.insertaPaciente(nnombrePaciente, institucion, genero, edad, nnssPaciente, tipoPaciente, identificador);
+            out.println("<html>");
+            out.println("<script>alert('Paciente registrado');location.href = 'consultaExp.jsp' ;</script>");
+            out.println("</html>");
+        }
+        
     }
    
 

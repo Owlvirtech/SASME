@@ -44,7 +44,6 @@ public class AgregarDoc extends HttpServlet {
         int celular = Integer.parseInt(request.getParameter("celular"));
         doc.insertaDoctor(nombre, contraseña, usuario,dias[0],8 ,14 , genero, mail);
 //        Conectamos a la base
-
 response.sendRedirect("consulta.jsp");
     }
 
