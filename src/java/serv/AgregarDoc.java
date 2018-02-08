@@ -31,20 +31,42 @@ public class AgregarDoc extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ses = request.getSession();
-        
-        cDoctor doc = new cDoctor();
-        String nombre = request.getParameter("nombreD");
-        String usuario = request.getParameter("nusuario");
-        String contraseña = request.getParameter("ncontra");
-        String genero = request.getParameter("genero");
-        String[] dias = request.getParameterValues("dias");
-        String mail = request.getParameter("correo");
-        int telefono = Integer.parseInt(request.getParameter("telefono"));
-        int celular = Integer.parseInt(request.getParameter("celular"));
-        doc.insertaDoctor(nombre, contraseña, usuario,dias[0],8 ,14 , genero, mail);
-//        Conectamos a la base
-response.sendRedirect("consulta.jsp");
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession ses = request.getSession();
+            int Sta=0,End=0;
+            cDoctor doc = new cDoctor();
+            String nombre = request.getParameter("nombreD");
+            String usuario = request.getParameter("nusuario");
+            String contraseña = request.getParameter("ncontra");
+            String contraseña2 = request.getParameter("ncontra2");
+            String genero = request.getParameter("generoDoc");
+            String[] dias = request.getParameterValues("dias");
+            String mail = request.getParameter("correo");
+            String Turno = request.getParameter("Turno");
+            String TypeDoc = request.getParameter("TypeDoc");
+            String celular = request.getParameter("celular");
+            if(!usuario.equals("")){
+                if(contraseña.equals(contraseña2)){
+                    if(Turno.equals("MAT")){
+                        Sta=8; End=14;
+                    }else{
+                        Sta=14; End=20;
+                    }
+                    String msj = doc.insertaDoctor(nombre, contraseña, usuario,dias[0],Sta,End,TypeDoc,genero, mail,celular);
+                    out.println("<html>");
+                    out.println("<script>alert('doctor "+msj+"');location.href = 'consultarDoc.jsp' ;</script>");
+                    out.println("</html>");
+                }else{
+                    out.println("<html>");
+                    out.println("<script>alert('Las contraseñas no coinciden');</script>");
+                    out.println("</html>");
+                }
+            }else{
+                out.println("<html>");
+                out.println("<script>alert('Faltan Datos');</script>");
+                out.println("</html>");
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,6 +1,7 @@
 package Doctor;
 
 import BD.cConectaBD;
+import BD.cDatosSaker;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.CallableStatement; /*PROCEDIMIENTOS*/
@@ -24,34 +25,56 @@ public class cDoctor {
         procedure= null;
     }
     /*AGREGA DOCTORES*/
-    public void insertaDoctor(String nombre, String contra, String usuario, String dias, int horaInicio, int horaTermino, String tipoDoctor, String sexo){
+    public String insertaDoctor(String nombre, String contra, String usuario, String dias, int horaInicio, int horaTermino, String tipoDoctor, String sexo,String Mail,String Celular){
+        String msj= "";
         cont= Conecta.Conecta();
         if(cont != null){
-            String msj= "";
             try{
-                procedure= cont.prepareCall("{CALL agregaDoctor(?,?,?,?,?,?,?,?)}");
-                procedure.setString(1, nombre);
-                procedure.setString(2, contra);
-                procedure.setString(3, usuario);
-                procedure.setString(4, dias);
-                procedure.setInt(5, horaInicio);
-                procedure.setInt(6, horaTermino);
-                procedure.setString(7, tipoDoctor);
-                procedure.setString(8, sexo);
+                cDatosSaker sk = new cDatosSaker();
+                sk.conectar();
+                sk.insertar("call AgregaUsr('"+usuario+"','"+contra+"');");
+                sk.cierraConexion();
                 
+                procedure= cont.prepareCall("CALL agregaDoctor(?,?,?,?,?,?,?)");
+                procedure.setString(1, nombre);
+                procedure.setString(2, usuario);
+                procedure.setString(3, dias);
+                procedure.setInt(4, horaInicio);
+                procedure.setInt(5, horaTermino);
+                procedure.setString(6, tipoDoctor);
+                procedure.setString(7, sexo);
+
                 procedure.execute();
                 resul= procedure.getResultSet();
-                
+
                 while(resul.next()){
                     msj= resul.getString("msj");
                 }
-            }catch(SQLException e){
-                System.out.println("Error al llamar procedimiento");
+                //Contacto
+                procedure= cont.prepareCall("CALL agregaContacto(?,?,?,?)");
+                procedure.setString(1, nombre);
+                procedure.setString(2, usuario);
+                procedure.setString(3,"Correo");
+                procedure.setString(4,Mail);
+
+                procedure.execute();
+                procedure= cont.prepareCall("CALL agregaContacto(?,?,?,?)");
+                procedure.setString(1, nombre);
+                procedure.setString(2, usuario);
+                procedure.setString(3,"Celular");
+                procedure.setString(4,Celular);
+
+                procedure.execute();
+            }catch(Exception e){
+                System.out.println("Error al llamar procedimiento-insertaDoctor");
+                System.out.println(e.getMessage());
+                msj=e.getMessage();
             }
             cont= Conecta.cierra(cont);
             Conecta.cierra();
             System.out.println(msj);
         }
+        return msj;
     }
     /*TRAE TODOS LOS DOCTORES*/
     public String[][] DoctoresTotales(){
@@ -75,7 +98,7 @@ public class cDoctor {
                     vista= cont.createStatement();
                     resul= vista.executeQuery("SELECT * FROM " + nombreVista);
 
-                    String[] nombreColums= {"Num_Doctor","Nombre","Contraseña","Usuario","Dias_Laborales","Hora_Entrada",
+                    String[] nombreColums= {"Num_Doctor","Nombre","Usuario","Dias_Laborales","Hora_Entrada",
                                             "Hora_Salida","Tipo_Doctor","Genero"};
                     
                     while(resul.next()){
@@ -87,6 +110,7 @@ public class cDoctor {
                     }
                 }catch(SQLException e){
                     System.out.println("Error al llamar vista");
+                    System.out.println(e.getMessage());
                 }
             }catch(SQLException e){
                 System.out.println("Error al declarar el maximo del String");

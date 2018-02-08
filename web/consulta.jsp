@@ -104,7 +104,7 @@
       <main class="mdl-layout__content mdl-color--grey-100">
           <form action="nConsulta" method="post">
               <br>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--2-col ">
                   <input class="mdl-textfield__input" type="text" id="nombreP" name="nombreP">
                   <label class="mdl-textfield__label" for="nombreP">Nombre del paciente</label>
                 </div> &nbsp;
