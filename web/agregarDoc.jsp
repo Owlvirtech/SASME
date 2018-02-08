@@ -49,7 +49,6 @@
     <!--
     <link rel="canonical" href="http://www.example.com/">
     -->
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
@@ -120,30 +119,55 @@
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
                   <input class="mdl-textfield__input" type="text" id="nusuario" name="nusuario">
                   <label class="mdl-textfield__label" for="nusuario">Usuario</label>
-                </div> &nbsp;
+                </div> &nbsp;<br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
                   <input class="mdl-textfield__input" type="password" id="ncontra" name="ncontra">
                   <label class="mdl-textfield__label" for="ncontra">Contraseña</label>
+                </div> &nbsp;
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                  <input class="mdl-textfield__input" type="password" id="ncontra2" name="ncontra2">
+                  <label class="mdl-textfield__label" for="ncontra2">Repite Contraseña</label>
                 </div> &nbsp;<br>
-
+                <!--Radio Button con Material Design Lite-->
                 <a>Genero</a>&nbsp; 
                 <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "opcion1">
-                  <input type = "radio" id = "opcion1" name = "generoDoc" value="hombre" 
+                  <input type = "radio" id = "opcion1" name = "generoDoc" value="Masculino" 
                      class = "mdl-radio__button" checked>
-                  <span class = "mdl-radio__label">Hombre</span>
+                  <span class = "mdl-radio__label">Masculino</span>
                </label>&nbsp; 
                 <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" 
                   for = "opcion2">
-                  <input type = "radio" id = "opcion2" name = "generoDoc" value="mujer"
+                  <input type = "radio" id = "opcion2" name = "generoDoc" value="Femenino"
                      class = "mdl-radio__button" >
-                  <span class = "mdl-radio__label">Mujer</span>
+                  <span class = "mdl-radio__label">Femenino</span>
                 </label>
                <br>
+               <!--Combo box con Material Design Lite-->
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+                    <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
+                    <input type="hidden" value="" name="Turno">
+                    <label class="mdl-textfield__label" for="Turno">Turno</label>
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
+                        <li class="mdl-menu__item" data-val="MAT">Matutino</li>
+                        <li class="mdl-menu__item" data-val="VES">Vespertino</li>
+                    </ul>
+                </div>&nbsp; 
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+                    <input type="text" value="" class="mdl-textfield__input" id="TypeDoc" readonly>
+                    <input type="hidden" value="" name="TypeDoc">
+                    <label class="mdl-textfield__label" for="TypeDoc">Tipo de doctor</label>
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="TypeDoc">
+                        <li class="mdl-menu__item" data-val="General">General</li>
+                        <li class="mdl-menu__item" data-val="Dentista">Dentista</li>
+                        <li class="mdl-menu__item" data-val="Pasante">Pasante</li>
+                    </ul>
+                </div>
                <br>
+               <!--Check box con Material Design Lite-->
                <p>Dias de trabajo</p>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="lunes">
                   <input type="checkbox" id="lunes" class="mdl-checkbox__input" name="dias" value="lunes"/>
-                  <span class="mdl-checkbox__label">Lunes</span> 
+                  <span class="mdl-checkbox__label">Lunes</span>
                 </label>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="martes">
                   <input type="checkbox" id="martes" class="mdl-checkbox__input" name="dias" value="martes"/>
@@ -168,10 +192,6 @@
                   <label class="mdl-textfield__label" for="correo">Correo</label>
                 </div> &nbsp;
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <input class="mdl-textfield__input" type="text" id="telefono" name="telefono">
-                  <label class="mdl-textfield__label" for="telefono">Telefono</label>
-                </div> &nbsp;
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
                   <input class="mdl-textfield__input" type="text" id="celular" name="celular">
                   <label class="mdl-textfield__label" for="celular">Celular</label>
                 </div> &nbsp;<br>
@@ -183,5 +203,6 @@
       </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="getmdl-select-master/getmdl-select.min.js" type="text/javascript"></script>
   </body>
 </html>

@@ -54,7 +54,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Consultar Doctores</span>
+          <span class="mdl-layout-title text-primary ">Consultar Doctores</span>
           <div class="mdl-layout-spacer"></div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
@@ -95,9 +95,9 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-          <h1 class="mb-0">
-                                <span class="text-primary">Doctores</span>
-                            </h1>
+          
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col ">
+                            
                             <p>
                                 Buscar doctor
                             </p>
@@ -107,12 +107,7 @@
                             </form>
                             <a href="agregarDoc.jsp">Registra un doctor</a>
                             <br>
-                            <br>
-                                Escriba la ID del doctor que desa eliminar:<br><br>
-                                <input type="text" name="EliminarDoc" value="" placeholder="ID del doctor" name="Eliminar" size="50" />
-                                <input type="submit" value="Eliminar Doctores" id="Eliminar" name="Eliminar" />
-                            <br>
-                            <br>
+                            
                             <br>
                             <%    
                                     out.println("<div id='EditarInfo' style='display:none; background-color: #a6e1ec; position: absolute;  left: 30%; width: 80%; '>");
@@ -159,13 +154,13 @@
                                     out.println("</form>");   
                                 out.println("</div>");                               
                                 %> 
+
                             <form action="Doctores" method="get">
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
-                                        <th>Usuario</th>
                                         <th>Hora de entrada</th>
                                         <th>Hora de salida</th>
                                         <th>Tipo</th>
@@ -180,10 +175,11 @@
                                                 out.println("<tr>");
                                                     out.println("<td>"+Doctor[i][0]+"</td>");
                                                     out.println("<td>"+Doctor[i][1]+"</td>");
-                                                    out.println("<td>"+Doctor[i][3]+"</td>");
+                                                    //out.println("<td>"+Doctor[i][2]+"</td>"); Usuario
+                                                    out.println("<td>"+Doctor[i][4]+"</td>");
+                                                    out.println("<td>"+Doctor[i][5]+"</td>");
                                                     out.println("<td>"+Doctor[i][6]+"</td>");
-                                                    out.println("<td>"+Doctor[i][7]+"</td>");
-                                                    out.println("<td>"+Doctor[i][8]+"</td>");
+                                                    //out.println("<td>"+Doctor[i][7]+"</td>"); Genero
                                                     out.println("<td><input type='button' value='Editar' class='btn btn-success' onclick='Editar(\""+Doctor[i][0]+"\")'></td>");
                                                 out.println("</tr>");    
                                             }
