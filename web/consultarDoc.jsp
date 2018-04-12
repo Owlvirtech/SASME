@@ -95,20 +95,22 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-          
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--4-col ">
-                            
-                            <p>
-                                Buscar doctor
-                            </p>
-                            <form name="Doctores" action="buscarDoc" method="POST">
-                                <input type="text" name="buscarDoc" value="" size="50" />
-                                <input type="submit" value="Buscar" name="Buscar" />
+                        
+                        
+                            <form action="#">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                              <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                                <i class="material-icons">search</i>
+                              </label>
+                              <div class="mdl-textfield__expandable-holder">
+                                <input class="mdl-textfield__input" type="text" id="sample6">
+                                <label class="mdl-textfield__label" for="sample-expandable">Ingresa el ID del doctor</label>
+                              </div>
+                            </div>
                             </form>
-                            <a href="agregarDoc.jsp">Registra un doctor</a>
-                            <br>
-                            
-                            <br>
+                        <br>
+                        <div>
+
                             <%    
                                     out.println("<div id='EditarInfo' style='display:none; background-color: #a6e1ec; position: absolute;  left: 30%; width: 80%; '>");
                                     out.println("<form action='Doctores' method='GET' enctype='multipart/form-data'>");
@@ -155,7 +157,7 @@
                                 out.println("</div>");                               
                                 %> 
 
-                            <form action="Doctores" method="get">
+                                <form action="Doctores" method="get">
                                 <table class="table table-hover">
                                     <thead>
                                       <tr>
@@ -164,7 +166,7 @@
                                         <th>Hora de entrada</th>
                                         <th>Hora de salida</th>
                                         <th>Tipo</th>
-                                        <th>Editar</th>
+                                        <th>Perfil</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -180,23 +182,24 @@
                                                     out.println("<td>"+Doctor[i][5]+"</td>");
                                                     out.println("<td>"+Doctor[i][6]+"</td>");
                                                     //out.println("<td>"+Doctor[i][7]+"</td>"); Genero
-                                                    out.println("<td><input type='button' value='Editar' class='btn btn-success' onclick='Editar(\""+Doctor[i][0]+"\")'></td>");
+                                                    out.println("<td><input type='button' value='Ver' class='btn btn-success' onclick='Editar(\""+Doctor[i][2]+"\")'></td>");
                                                 out.println("</tr>");    
                                             }
                                         %>   
                                     </tbody>
                                 </table>            
                             </form>
-                                    
+                                    <br>
+                                    <div>
+                        <button class="mdl-button mdl-js-button mdl-button--raised" onclick="location.href='agregarDoc.jsp'">Registrar</button>
+                        </div>
                         </div>
                     </section>
                     <%
                         out.println("<script>");
-                            out.println("function Editar(usuario){");
-                                out.println("document.getElementById('EditarInfo').style.display= 'block';");
-                                for(int i = 0; i < Doctor.length; i++){
-                                    
-                                }
+                            out.println("function Editar(usuario){location.href='perfilU.jsp?idBus='+usuario");
+                                //out.println("document.getElementById('EditarInfo').style.display= 'block';");
+                                
                             out.println("}");
                             out.println("function Cancelar(){");
                                 out.println("document.getElementById('EditarInfo').style.display= 'none';");

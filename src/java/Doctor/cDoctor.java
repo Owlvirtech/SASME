@@ -25,8 +25,15 @@ public class cDoctor {
         procedure= null;
     }
     /*AGREGA DOCTORES*/
-    public String insertaDoctor(String nombre, String contra, String usuario, String dias, int horaInicio, int horaTermino, String tipoDoctor, String sexo,String Mail,String Celular){
+    public String insertaDoctor(String nombre, String contra, String usuario, String[] dias, int horaInicio, int horaTermino,
+            String tipoDoctor, String sexo,String Mail,String Celular,String[] Permisos){
         String msj= "";
+        String todosDias = "";
+        String nota = "";
+        for(int j=0;j<dias.length;j++){
+            todosDias+= nota+dias[j];
+            nota=",";
+        }
         cont= Conecta.Conecta();
         if(cont != null){
             try{
@@ -38,7 +45,7 @@ public class cDoctor {
                 procedure= cont.prepareCall("CALL agregaDoctor(?,?,?,?,?,?,?)");
                 procedure.setString(1, nombre);
                 procedure.setString(2, usuario);
-                procedure.setString(3, dias);
+                procedure.setString(3, todosDias);
                 procedure.setInt(4, horaInicio);
                 procedure.setInt(5, horaTermino);
                 procedure.setString(6, tipoDoctor);
@@ -51,22 +58,29 @@ public class cDoctor {
                     msj= resul.getString("msj");
                 }
                 //Contacto
-                procedure= cont.prepareCall("CALL agregaContacto(?,?,?,?)");
-                procedure.setString(1, nombre);
-                procedure.setString(2, usuario);
-                procedure.setString(3,"Correo");
-                procedure.setString(4,Mail);
+                procedure= cont.prepareCall("CALL agregaContacto(?,?,?)");
+                procedure.setString(1, usuario);
+                procedure.setInt(2,1);
+                procedure.setString(3,Mail);
 
                 procedure.execute();
-                procedure= cont.prepareCall("CALL agregaContacto(?,?,?,?)");
-                procedure.setString(1, nombre);
-                procedure.setString(2, usuario);
-                procedure.setString(3,"Celular");
-                procedure.setString(4,Celular);
+                procedure= cont.prepareCall("CALL agregaContacto(?,?,?)");
+                procedure.setString(1, usuario);
+                procedure.setInt(2,2);
+                procedure.setString(3,Celular);
 
                 procedure.execute();
+                
+                procedure= cont.prepareCall("CALL agregaPermisoDoctor(?,?)");
+                
+                for(int i=0;i<Permisos.length;i++){
+                    procedure.setString(1, usuario);
+                    procedure.setInt(2,Integer.parseInt(Permisos[i]));
+                    procedure.execute();
+                }
+                
             }catch(Exception e){
-                System.out.println("Error al llamar procedimiento-insertaDoctor");
+                System.out.println("Error al llamar procedimientos - insertaDoctor - cDoctor");
                 System.out.println(e.getMessage());
                 msj=e.getMessage();
             }
@@ -155,8 +169,8 @@ public class cDoctor {
         return contactos;
     }
     /*BUSCA UN SOLO DOCTOR*/
-    public String[] buscaDoctor(String nombreDoctor, String usuarioDoctor){
-        String[] nombreColums= {"Num_Doctor","Nombre","Contraseña","Usuario","Dias_Laborales","Hora_Entrada",
+    public String[] buscaDoctor(String usuarioDoctor){
+        String[] nombreColums= {"Num_Doctor","Nombre","Usuario","Dias_Laborales","Hora_Entrada",
                                             "Hora_Salida","Tipo_Doctor","Genero"};
         String[] doctor= new String[nombreColums.length];
         String proce= "buscaDoctor";
@@ -164,9 +178,8 @@ public class cDoctor {
         if(cont != null){
             String msj= "";
             try{
-                procedure= cont.prepareCall("{CALL " + proce + "(?,?)}");
-                procedure.setString(1, nombreDoctor);
-                procedure.setString(2, usuarioDoctor);
+                procedure= cont.prepareCall("{CALL " + proce + "(?)}");
+                procedure.setString(1, usuarioDoctor);
                 
                 procedure.execute();
                 resul= procedure.getResultSet();
