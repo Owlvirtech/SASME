@@ -102,6 +102,7 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
+          <form>
           <%
                 if(Tipo.equals("Jefe_Area")&& usBus!=null){
                     
@@ -155,30 +156,29 @@
                             if(datosBus[4].equals("8")&&datosBus[5].equals("14")){
                             %>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                                <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
-                                <input type="hidden" value="MAT" name="Turno" readonly>
-                                <label class="mdl-textfield__label" for="Turno">Turno</label>
-                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
-                                <li class="mdl-menu__item" data-val="MAT">Matutino</li>
-                                <li class="mdl-menu__item" data-val="VES">Vespertino</li>
-                                </ul>
+                                    <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
+                                    <input type="hidden" value="" name="Turno">
+                                    <label class="mdl-textfield__label" for="Turno">Turno</label>
+                                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
+                                        <li class="mdl-menu__item" data-val="MAT">Matutino</li>
+                                        <li class="mdl-menu__item" data-val="VES">Vespertino</li>
+                                    </ul>
+                                </div>
                             <%    
                             }else{
                             %>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                                <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
-                                <input type="hidden" value="MAT" name="Turno" readonly>
-                                <label class="mdl-textfield__label" for="Turno">Turno</label>
-                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
-                                <li class="mdl-menu__item" data-val="MAT">Matutino</li>
-                                <li class="mdl-menu__item" data-val="VES">Vespertino</li>
-                                </ul>
+                                    <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
+                                    <input type="hidden" value="" name="Turno">
+                                    <label class="mdl-textfield__label" for="Turno">Turno</label>
+                                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
+                                        <li class="mdl-menu__item" data-val="MAT">Matutino</li>
+                                        <li class="mdl-menu__item" data-val="VES">Vespertino</li>
+                                    </ul>
+                                </div>
                             <%
                             }
                         %>
-                        
-                    
-                </div>
                &nbsp; 
                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
                     <input type="text" value="" class="mdl-textfield__input" id="TypeDoc" readonly>
@@ -289,6 +289,7 @@
                     response.sendRedirect("index.html");
                 }
             %>
+            </form>
       </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
