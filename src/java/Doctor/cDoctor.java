@@ -171,7 +171,7 @@ public class cDoctor {
     /*BUSCA UN SOLO DOCTOR*/
     public String[] buscaDoctor(String usuarioDoctor){
         String[] nombreColums= {"Num_Doctor","Nombre","Usuario","Dias_Laborales","Hora_Entrada",
-                                            "Hora_Salida","Tipo_Doctor","Genero"};
+                                            "Hora_Salida","Tipo_Doctor","Genero","Permisos"};
         String[] doctor= new String[nombreColums.length];
         String proce= "buscaDoctor";
         cont= Conecta.Conecta();
@@ -214,7 +214,7 @@ public class cDoctor {
         return doctor;
     }
     /*BUSCA UN SOLO CONTACTO DE UN SOLO DOCTOR*/
-    public String[] buscaContactoDoctor(String nombreDoctor, String usuarioDoctor){
+    public String[] buscaContactoDoctor(String usuarioDoctor){
         String[] contactos= new String[0];
         String proce= "buscaDoctorContactos";
         String maxContacto= "maxContacto";
@@ -231,15 +231,14 @@ public class cDoctor {
                 }
                 contactos= new String[max];
                 
-                procedure= cont.prepareCall("{CALL " + proce + "(?,?)}");
-                procedure.setString(1, nombreDoctor);
-                procedure.setString(2, usuarioDoctor);
+                procedure= cont.prepareCall("{CALL " + proce + "(?)}");
+                procedure.setString(1, usuarioDoctor);
                 
                 procedure.execute();
                 resul= procedure.getResultSet();
                 int i= 0;
                 while(resul.next()){
-                    contactos[i]= resul.getString("Tipo_Contacto") + "," + resul.getString("Contacto");
+                    contactos[i]= resul.getString("Contacto");
                     System.out.println(contactos[i]);
                     i++;
                 }

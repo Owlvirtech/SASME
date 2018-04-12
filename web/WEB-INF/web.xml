@@ -24,6 +24,10 @@
         <servlet-name>GetExpediente</servlet-name>
         <servlet-class>serv.GetExpediente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarDoc</servlet-name>
+        <servlet-class>serv.ModificarDoc</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AgregarDoc</servlet-name>
         <url-pattern>/AgregarDoc</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>GetExpediente</servlet-name>
         <url-pattern>/GetExpediente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarDoc</servlet-name>
+        <url-pattern>/ModificarDoc</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
