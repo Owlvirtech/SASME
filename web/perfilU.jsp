@@ -330,6 +330,7 @@
             <script>
                 function ocultar(){document.getElementById('Mod0').style.visibility='hidden';
                     document.getElementById("Modi").style.visibility='visible';
+                    document.getElementsByName('datosMod').disabled="false";
     };
             </script>
     <script src="getmdl-select-master/getmdl-select.min.js" type="text/javascript"></script>
