@@ -1,25 +1,18 @@
-<!doctype html>
-<!--
-  Material Design Lite
-  Copyright 2015 Google Inc. All rights reserved.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License
--->
+<%-- 
+    Document   : perfilU
+    Created on : 18/02/2018, 05:02:29 PM
+    Author     : angelraymundo
+--%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1" session="true"%>
+<%@page import="java.sql.ResultSet,Doctor.cDoctor"%>
 <%
-        HttpSession ses = request.getSession();
-       String usuario = "" + ses.getAttribute("ID");
+    HttpSession ses = request.getSession();
+    String usuario = "" + ses.getAttribute("ID");
         String Tipo = ""+ses.getAttribute("Tipo");
+    String usBus = request.getParameter("idBus");
+    cDoctor docBus = new cDoctor();
+    String[] datosBus = docBus.buscaDoctor(usBus);
+    
 %>
 <html lang="en">
   <head>
@@ -49,6 +42,7 @@
     <!--
     <link rel="canonical" href="http://www.example.com/">
     -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
@@ -69,7 +63,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Agregar Doctor</span>
+          <span class="mdl-layout-title">Doctor</span>
           <div class="mdl-layout-spacer"></div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
@@ -92,14 +86,12 @@
                     
             %>   
                 <a class="mdl-navigation__link" href="consultarDoc.jsp">Doctores</a>
-                <a class="mdl-navigation__link" href="">Bitácoras</a>
                 <a class="mdl-navigation__link" href="">Estadísticas</a>
             <%        
                 }else if(Tipo.equals("Doctor")){
             %>
                 <a class="mdl-navigation__link" href="consulta.jsp">Consulta Médica</a>
                 <a class="mdl-navigation__link" href="consultaExp.jsp">Expedientes</a>
-                <a class="mdl-navigation__link" href="">Bitácoras</a>
                 <a class="mdl-navigation__link" href="">Estadísticas</a>
             <%
                 }
@@ -110,48 +102,84 @@
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
-          <form action="AgregarDoc" method="post">
-              <br>
+          <%
+                if(Tipo.equals("Jefe_Area")&& usBus!=null){
+                    
+            %>   
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <input class="mdl-textfield__input" type="text" id="nombreD" name="nombreD">
+                    <input class="mdl-textfield__input" type="text" id="nombreD" value="<%=datosBus[1]%>" disabled="true" name="nombreD">
                   <label class="mdl-textfield__label" for="nombreD">Nombre del Doctor</label>
                 </div> &nbsp;
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <input class="mdl-textfield__input" type="text" id="nusuario" name="nusuario">
+                  <input class="mdl-textfield__input" type="text" id="nusuario" value="<%=datosBus[2]%>" disabled="true" name="nusuario">
                   <label class="mdl-textfield__label" for="nusuario">Usuario</label>
                 </div> &nbsp;<br>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <input class="mdl-textfield__input" type="password" id="ncontra" name="ncontra">
-                  <label class="mdl-textfield__label" for="ncontra">Contraseña</label>
-                </div> &nbsp;
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-                  <input class="mdl-textfield__input" type="password" id="ncontra2" name="ncontra2">
-                  <label class="mdl-textfield__label" for="ncontra2">Repite Contraseña</label>
-                </div> &nbsp;<br>
                 <!--Radio Button con Material Design Lite-->
-                <a>Genero</a>&nbsp; 
-                <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "opcion1">
+                <a>Genero</a>&nbsp;
+                <%
+                    if(datosBus[7].equals("H")){
+                %>
+                    <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "opcion1">
                   <input type = "radio" id = "opcion1" name = "generoDoc" value="Masculino" 
-                     class = "mdl-radio__button" checked>
+                         class = "mdl-radio__button" checked disabled="true">
                   <span class = "mdl-radio__label">Masculino</span>
                </label>&nbsp; 
                 <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" 
                   for = "opcion2">
                   <input type = "radio" id = "opcion2" name = "generoDoc" value="Femenino"
-                     class = "mdl-radio__button" >
+                     class = "mdl-radio__button" disabled="true">
                   <span class = "mdl-radio__label">Femenino</span>
                 </label>
+                <%        
+                    }else{
+                %>
+               <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "opcion1">
+                  <input type = "radio" id = "opcion1" name = "generoDoc" value="Masculino" 
+                         class = "mdl-radio__button" disabled="true">
+                  <span class = "mdl-radio__label">Masculino</span>
+               </label>&nbsp; 
+                <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" 
+                  for = "opcion2">
+                  <input type = "radio" id = "opcion2" name = "generoDoc" value="Femenino"
+                     class = "mdl-radio__button" checked disabled="true">
+                  <span class = "mdl-radio__label">Femenino</span>
+                </label> 
+               <%
+                    }
+                %>
                <br>
                <!--Combo box con Material Design Lite-->
-               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                    <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
-                    <input type="hidden" value="" name="Turno">
-                    <label class="mdl-textfield__label" for="Turno">Turno</label>
-                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
-                        <li class="mdl-menu__item" data-val="MAT">Matutino</li>
-                        <li class="mdl-menu__item" data-val="VES">Vespertino</li>
-                    </ul>
-                </div>&nbsp; 
+               
+                    
+                        <%
+                            if(datosBus[4].equals("8")&&datosBus[5].equals("14")){
+                            %>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+                                <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
+                                <input type="hidden" value="MAT" name="Turno" readonly>
+                                <label class="mdl-textfield__label" for="Turno">Turno</label>
+                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
+                                <li class="mdl-menu__item" data-val="MAT">Matutino</li>
+                                <li class="mdl-menu__item" data-val="VES">Vespertino</li>
+                                </ul>
+                            <%    
+                            }else{
+                            %>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+                                <input type="text" value="" class="mdl-textfield__input" id="Turno" readonly>
+                                <input type="hidden" value="MAT" name="Turno" readonly>
+                                <label class="mdl-textfield__label" for="Turno">Turno</label>
+                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="Turno">
+                                <li class="mdl-menu__item" data-val="MAT">Matutino</li>
+                                <li class="mdl-menu__item" data-val="VES">Vespertino</li>
+                                </ul>
+                            <%
+                            }
+                        %>
+                        
+                    
+                </div>
+               &nbsp; 
                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
                     <input type="text" value="" class="mdl-textfield__input" id="TypeDoc" readonly>
                     <input type="hidden" value="" name="TypeDoc">
@@ -254,13 +282,15 @@
                   <label class="mdl-textfield__label" for="celular">Celular</label>
                 </div> &nbsp;<br>
                 
-               <input type="submit" value="Enviar" name="enviar" class="mdl-button mdl-js-button mdl-button--primary" />
-               
-                
-              </form>
+            <%        
+                }else if(Tipo.equals("Jefe_Area")){
+                    response.sendRedirect("index.html");
+                }else if(Tipo.equals("Doctor")){
+                    response.sendRedirect("index.html");
+                }
+            %>
       </main>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="getmdl-select-master/getmdl-select.min.js" type="text/javascript"></script>
   </body>
 </html>

@@ -41,6 +41,7 @@ public class AgregarDoc extends HttpServlet {
             String contraseña2 = request.getParameter("ncontra2");
             String genero = request.getParameter("generoDoc");
             String[] dias = request.getParameterValues("dias");
+            String[] permisos = request.getParameterValues("permisos");
             String mail = request.getParameter("correo");
             String Turno = request.getParameter("Turno");
             String TypeDoc = request.getParameter("TypeDoc");
@@ -52,7 +53,7 @@ public class AgregarDoc extends HttpServlet {
                     }else{
                         Sta=14; End=20;
                     }
-                    String msj = doc.insertaDoctor(nombre, contraseña, usuario,dias[0],Sta,End,TypeDoc,genero, mail,celular);
+                    String msj = doc.insertaDoctor(nombre, contraseña, usuario,dias,Sta,End,TypeDoc,genero, mail,celular,permisos);
                     out.println("<html>");
                     out.println("<script>alert('doctor "+msj+"');location.href = 'consultarDoc.jsp' ;</script>");
                     out.println("</html>");
